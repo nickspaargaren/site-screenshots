@@ -1,7 +1,5 @@
 #!/bin/bash
 
-alias brave="/Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser"
-
 while IFS= read -r site
 do
   file_name=${site//\/}
@@ -9,5 +7,6 @@ do
   file_name=${file_name/"https:"/""}
   file_name=${file_name/"http:"/""}
 
-  brave --headless --disable-gpu --enable-logging --screenshot --hide-scrollbars --window-size=1366,768 --screenshot=screenshots/$file_name.png $site
+  chromium-browser --headless --disable-gpu --disable-software-rasterizer --use-gl=swiftshader --disable-software-rasterizer --disable-dev-shm-usage  --window-size=1366,1366 --no-sandbox --screenshot --hide-scrollbars --screenshot=screenshots/$file_name.png $site
+
 done < data/sites.txt
